@@ -64,6 +64,36 @@ hr{border:0;border-top:1px solid #e6ebe9;margin:14px 0}
 .flyer-contact strong{display:block;font-size:13px;color:#17383a}
 @media(max-width:520px){.flyer-services{grid-template-columns:1fr}.flyer-contact{grid-template-columns:1fr}}
 
+
+/* Traditional Wightman customer document layout */
+.customer-quote{max-width:820px;background:#fffdf8;border:1px solid #d9d0c2;color:#20282b;font-family:Georgia,"Times New Roman",serif}
+.doc-head{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center;background:#06383b;color:#fff8e9;padding:18px 22px;border-bottom:5px solid #d5b779}
+.doc-logo{width:100%;max-width:360px;height:auto;max-height:100px;object-fit:contain;object-position:left center}
+.doc-contact{font-family:Arial,sans-serif;font-size:11px;line-height:1.9;text-align:left;color:#fff8e9}
+.doc-contact div{white-space:nowrap}
+.doc-content{padding:22px 24px 20px}
+.doc-title-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px}
+.doc-title{font-family:'AramisScript',Georgia,serif;font-size:38px;font-weight:400;color:#0b393b;margin:0;line-height:1}
+.doc-number{font-family:Arial,sans-serif;font-size:11px;line-height:1.7;text-align:right;color:#263238}
+.doc-panels{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 16px}
+.doc-panel{border:1px solid #d8d0c4;border-radius:5px;padding:9px 11px;min-height:66px;font-family:Arial,sans-serif;font-size:11px;line-height:1.5;white-space:pre-line}
+.doc-panel b{display:block;margin-bottom:3px;font-size:11px;color:#173c3e}
+.doc-intro{font-size:11px;margin:10px 0 8px}
+.doc-table{width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:11px;margin:8px 0 0}
+.doc-table th{background:#06383b;color:#fff;padding:8px 7px;text-align:left;font-weight:600}
+.doc-table td{border:1px solid #d9d2c7;padding:7px;vertical-align:top}
+.doc-table th:nth-child(n+2),.doc-table td:nth-child(n+2){text-align:right;white-space:nowrap}
+.doc-totals{width:min(100%,310px);margin:0 0 0 auto;font-family:Arial,sans-serif;font-size:11px}
+.doc-totals div{display:flex;justify-content:space-between;padding:6px 8px;border:1px solid #ddd5c8;border-top:0}
+.doc-totals .grand{background:#ead6a9;color:#172d2e;font-weight:750;font-size:13px;border:1px solid #d2b878}
+.doc-bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.doc-notes,.doc-payment{background:#f5efe3;border:1px solid #e2d7c4;border-radius:5px;padding:10px;font-family:Arial,sans-serif;font-size:10px;line-height:1.5}
+.doc-notes b,.doc-payment b{display:block;color:#153b3d;margin-bottom:4px}
+.doc-thanks{font-family:'AramisScript',Georgia,serif;font-size:24px;color:#0b393b;margin:14px 0 0}
+.doc-footer{background:#06383b;color:#fff8e9;text-align:center;padding:9px 12px;font:9px Arial,sans-serif;letter-spacing:1.2px;margin-top:12px}
+@media(max-width:560px){.doc-head{grid-template-columns:1fr}.doc-contact{display:flex;flex-wrap:wrap;gap:4px 12px}.doc-panels,.doc-bottom{grid-template-columns:1fr}.doc-content{padding:16px 12px}.doc-title{font-size:32px}.doc-table{font-size:10px}.doc-table td,.doc-table th{padding:6px 4px}}
+@media print{.doc-head,.doc-table th,.doc-footer{-webkit-print-color-adjust:exact;print-color-adjust:exact}.doc-content{padding:18px 20px}}
+
 @media print{
   body{background:white!important}
   body *{visibility:hidden!important}
@@ -275,48 +305,29 @@ function deleteJob(id){if(confirm('Delete this job?')){jobs=jobs.filter(j=>j.id!
 function renderDash(){document.getElementById('countJobs').textContent=jobs.length;document.getElementById('countActive').textContent=jobs.filter(j=>['Accepted','In progress','Completed'].includes(j.status)).length;document.getElementById('recent').innerHTML=jobs.slice(0,5).map(j=>`<div class="job"><b>${esc(j.customer||'Unnamed customer')}</b><div class="small">${esc(j.status)} · ${money(j.calculation?.sell||0)}</div></div>`).join('')||'<p class="small">No jobs saved yet.</p>'}
 function previewQuote(){
  const d=formData(),c=calc();
- const date=d.date?new Date(d.date+'T12:00:00').toLocaleDateString('en-GB'):'';
- const quoteRef='WD-'+(d.date||new Date().toISOString().slice(0,10)).replaceAll('-','')+'-'+String(d.customer||'JOB').replace(/[^a-z0-9]/gi,'').slice(0,4).toUpperCase();
- const roomScope=rooms.map(r=>`${r.type} (${r.size}, ${r.condition} condition): ${[r.walls?'walls':'',r.ceiling?'ceiling':'',r.woodwork?'woodwork':''].filter(Boolean).join(', ')}`).join('\n');
- const scope=esc([d.notes,roomScope].filter(Boolean).join('\n\n')||'Decorating and/or floor sanding work as discussed.');
- const customer=esc(d.customer||'Customer');
- const address=esc(d.address||'');
- const decorLine=num('decorDays')>0?`<p>Decorating labour: ${num('decorDays')} working day(s) at ${money(num('decorRate'))} per 7-hour day — <strong>${money(c.decor-num('decorMaterials')-num('decorOther'))}</strong></p>`:'';
- const floorLine=num('floorArea')>0?`<p>Floor sanding and finishing: ${num('floorArea')} m² at ${money(num('floorRate'))}/m² — <strong>${money(c.floor-num('floorMaterials')-num('equipment')-num('floorOther'))}</strong></p>`:'';
- const extraLines=[
-   num('decorMaterials')?`<p>Decorating materials: ${money(num('decorMaterials'))}</p>`:'',
-   num('decorOther')?`<p>Other decorating costs: ${money(num('decorOther'))}</p>`:'',
-   num('floorMaterials')?`<p>Floor materials / finish: ${money(num('floorMaterials'))}</p>`:'',
-   num('equipment')?`<p>Floor equipment: ${money(num('equipment'))}</p>`:'',
-   num('floorOther')?`<p>Other floor costs: ${money(num('floorOther'))}</p>`:''
- ].join('');
- document.getElementById('quoteText').innerHTML=`
- <div class="quote-masthead">
-   <img class="quote-brand-art" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating">
-   <div class="tagline">Professional Decorating<br>For Homes &amp; Businesses</div>
-   <div class="quote-contact">07903 806275 &nbsp; | &nbsp; pierswightman@gmail.com &nbsp; | &nbsp; Frome &amp; Surrounding Areas</div>
- </div>
- <div class="quote-body">
-   <h2 class="quote-title">Quotation</h2>
-   <div class="quote-meta">
-     <div><strong>Prepared for</strong>${customer}<br>${address}</div>
-     <div><strong>Quote reference</strong>${quoteRef}<br><strong style="margin-top:8px">Date</strong>${date}</div>
-   </div>
-   <div class="quote-section-title">Scope of work</div>
-   <div class="quote-scope">${scope}</div>
-   ${decorLine}${floorLine}${extraLines}
-   <div class="quote-total"><span>Total quotation</span><strong>${money(c.sell)}</strong></div>
-   <div class="quote-terms">This quotation is valid for 30 days. No deposit is required; payment is due on completion. Any additional repairs, changes to the agreed scope or unforeseen work will be discussed and agreed separately before being carried out.<br><br>Acceptance: ______________________________ &nbsp; Date: ______________</div>
-   <div class="quote-footer">Wightman Decorating &nbsp; · &nbsp; Local, Experienced &amp; Trusted</div>
- </div>`;
- document.getElementById('quotePreview').classList.remove('hidden');
- document.getElementById('quotePreview').scrollIntoView({behavior:'smooth',block:'start'});
+ const date=d.date?new Date(d.date+'T12:00:00').toLocaleDateString('en-GB'):new Date().toLocaleDateString('en-GB');
+ const quoteRef='Q'+(d.date||new Date().toISOString().slice(0,10)).replaceAll('-','').slice(2)+'-'+String(d.customer||'JOB').replace(/[^a-z0-9]/gi,'').slice(0,4).toUpperCase();
+ const roomScope=rooms.map(r=>`${r.type} (${r.size}, ${r.condition} condition): ${[r.walls?'walls':'',r.ceiling?'ceiling':'',r.woodwork?'woodwork':''].filter(Boolean).join(', ')}`).join('; ');
+ const scope=esc([d.notes,roomScope].filter(Boolean).join('\n')||'Decorating and/or floor sanding work as discussed.');
+ const customer=esc(d.customer||'Customer'), address=esc(d.address||'');
+ const rows=[];
+ if(num('decorDays')>0)rows.push(`<tr><td>Decorating labour (${num('decorDays')} days)</td><td>${num('decorDays')} days</td><td>${money(num('decorRate'))}</td><td>${money(num('decorDays')*num('decorRate'))}</td></tr>`);
+ if(num('decorMaterials'))rows.push(`<tr><td>Decorating materials</td><td>1</td><td>${money(num('decorMaterials'))}</td><td>${money(num('decorMaterials'))}</td></tr>`);
+ if(num('decorOther'))rows.push(`<tr><td>Other decorating costs</td><td>1</td><td>${money(num('decorOther'))}</td><td>${money(num('decorOther'))}</td></tr>`);
+ if(num('floorArea')>0)rows.push(`<tr><td>Floor sanding and finishing</td><td>${num('floorArea')} m²</td><td>${money(num('floorRate'))}/m²</td><td>${money(Math.max(num('floorArea')*num('floorRate'),num('floorMinimum')))}</td></tr>`);
+ if(num('floorMaterials'))rows.push(`<tr><td>Floor materials / finish</td><td>1</td><td>${money(num('floorMaterials'))}</td><td>${money(num('floorMaterials'))}</td></tr>`);
+ if(num('equipment'))rows.push(`<tr><td>Floor equipment</td><td>1</td><td>${money(num('equipment'))}</td><td>${money(num('equipment'))}</td></tr>`);
+ if(num('floorOther'))rows.push(`<tr><td>Other floor costs</td><td>1</td><td>${money(num('floorOther'))}</td><td>${money(num('floorOther'))}</td></tr>`);
+ if(!rows.length)rows.push(`<tr><td>Work as described</td><td>1</td><td>${money(c.sell)}</td><td>${money(c.sell)}</td></tr>`);
+ const expiry=new Date((d.date||new Date().toISOString().slice(0,10))+'T12:00:00');expiry.setDate(expiry.getDate()+30);
+ document.getElementById('quoteText').innerHTML=`<div class="doc-head"><img class="doc-logo" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating"><div class="doc-contact"><div>☎ &nbsp;07596 393872</div><div>✉ &nbsp;pierswightman@gmail.com</div><div>⌖ &nbsp;Frome &amp; Surrounding Areas</div></div></div><div class="doc-content"><div class="doc-title-row"><h2 class="doc-title">Quotation</h2><div class="doc-number">Quote No: ${esc(quoteRef)}<br>Date: ${esc(date)}<br>Valid until: ${esc(expiry.toLocaleDateString('en-GB'))}</div></div><div class="doc-panels"><div class="doc-panel"><b>Customer:</b>${customer}${d.phone?'<br>'+esc(d.phone):''}${d.email?'<br>'+esc(d.email):''}</div><div class="doc-panel"><b>Job Address:</b>${address}</div></div><p class="doc-intro">Thank you for your enquiry. Please find below our quotation for the work discussed.</p><div class="doc-panel" style="margin-bottom:10px"><b>Description / Scope of Work</b>${scope}</div><table class="doc-table"><thead><tr><th>Description of Work</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>${rows.join('')}</tbody></table><div class="doc-totals"><div><span>Sub-Total</span><b>${money(c.sell)}</b></div><div><span>VAT (not applicable)</span><b>£0.00</b></div><div class="grand"><span>Total (GBP)</span><b>${money(c.sell)}</b></div></div><div class="doc-bottom"><div class="doc-notes"><b>Notes:</b>Prices are valid for 30 days.<br>All work will be carried out to a high professional standard.<br>Please contact me if you have any questions or wish to proceed.</div><div class="doc-notes"><b>Acceptance:</b>I accept this quotation and the work described above.<br><br>Signed: ____________________<br><br>Date: ____________________</div></div><div class="doc-thanks">Thank you</div></div><div class="doc-footer">INTERIOR &amp; EXTERIOR PAINTING &nbsp; | &nbsp; WOODWORK &amp; JOINERY &nbsp; | &nbsp; QUALITY FINISHES</div>`;
+ document.getElementById('quotePreview').classList.remove('hidden');document.getElementById('quotePreview').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function copyQuote(){
  const d=formData(),c=calc();
  const t=`WIGHTMAN DECORATING
 PROFESSIONAL DECORATING FOR HOMES & BUSINESSES
-07903 806275 | pierswightman@gmail.com | Frome & Surrounding Areas
+07596 393872 | pierswightman@gmail.com | Frome & Surrounding Areas
 
 QUOTATION
 Prepared for: ${d.customer}
@@ -349,7 +360,10 @@ function renderInvoices(){const q=(document.getElementById('invoiceSearch')?.val
 function deleteInvoice(id){if(confirm('Delete this invoice record?')){invoices=invoices.filter(i=>i.id!==id);persistInvoices()}}
 function previewSavedInvoice(id){const d=invoices.find(x=>x.id===id);if(!d)return;renderInvoiceMarkup(d);document.getElementById('invoiceEditor').classList.add('hidden');document.getElementById('invoicePreview').classList.remove('hidden')}
 function previewInvoice(){const d=invoiceData();if(!d.customer||!d.description){alert('Enter the customer name and work description first.');return}renderInvoiceMarkup(d);document.getElementById('invoicePreview').classList.remove('hidden')}
-function renderInvoiceMarkup(d){const date=d.date?new Date(d.date+'T12:00:00').toLocaleDateString('en-GB'):'';const balance=Math.max(0,(Number(d.amount)||0)-(Number(d.paidAmount)||0));document.getElementById('invoiceText').innerHTML=`<div class="quote-masthead"><img class="quote-brand-art" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating"><div class="tagline">Professional Decorating<br>For Homes &amp; Businesses</div><div class="quote-contact">07903 806275 &nbsp; | &nbsp; pierswightman@gmail.com &nbsp; | &nbsp; Frome &amp; Surrounding Areas</div></div><div class="quote-body"><h2 class="quote-title">Invoice</h2><div class="quote-meta"><div><strong>Invoice to</strong>${esc(d.customer)}<br>${esc(d.address||'')}</div><div><strong>Invoice number</strong>${esc(d.number)}<br><strong style="margin-top:8px">Invoice date</strong>${esc(date)}<br><strong style="margin-top:8px">Payment terms</strong>Due on receipt</div></div><div class="quote-section-title">Description of work</div><div class="quote-scope">${esc(d.description)}</div><div class="quote-total"><span>Invoice total</span><strong>${money(d.amount)}</strong></div><div class="quote-terms"><strong>Payment due on receipt.</strong><br>Amount paid: ${money(d.paidAmount)}<br>Balance outstanding: <strong>${money(balance)}</strong><br><br>Payment by bank transfer:<br>Account name: Piers Wightman<br>Account number: 55788685<br>Sort code: 23-05-80<br><br>Wightman Decorating is not VAT registered. No VAT has been charged.</div><div class="quote-footer">Thank you for your business · Wightman Decorating</div></div>`}
+function renderInvoiceMarkup(d){
+ const date=d.date?new Date(d.date+'T12:00:00').toLocaleDateString('en-GB'):'';const balance=Math.max(0,(Number(d.amount)||0)-(Number(d.paidAmount)||0));
+ document.getElementById('invoiceText').innerHTML=`<div class="doc-head"><img class="doc-logo" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating"><div class="doc-contact"><div>☎ &nbsp;07596 393872</div><div>✉ &nbsp;pierswightman@gmail.com</div><div>⌖ &nbsp;Frome &amp; Surrounding Areas</div></div></div><div class="doc-content"><div class="doc-title-row"><h2 class="doc-title">Invoice</h2><div class="doc-number">Invoice No: ${esc(d.number)}<br>Date: ${esc(date)}<br>Payment due: On receipt</div></div><div class="doc-panels"><div class="doc-panel"><b>Invoice To:</b>${esc(d.customer)}${d.phone?'<br>'+esc(d.phone):''}${d.email?'<br>'+esc(d.email):''}<br>${esc(d.address||'')}</div><div class="doc-panel"><b>Job Address:</b>${esc(d.address||'')}</div></div><table class="doc-table"><thead><tr><th>Description of Work</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead><tbody><tr><td>${esc(d.description)}</td><td>1</td><td>${money(d.amount)}</td><td>${money(d.amount)}</td></tr></tbody></table><div class="doc-totals"><div><span>Sub-Total</span><b>${money(d.amount)}</b></div><div><span>VAT (not applicable)</span><b>£0.00</b></div><div class="grand"><span>Total Due (GBP)</span><b>${money(d.amount)}</b></div></div><div class="doc-bottom"><div class="doc-payment"><b>Payment Details:</b>Account Name: Piers Wightman<br>Sort Code: 23-05-80<br>Account Number: 55788685<br><br>Amount paid: ${money(d.paidAmount)}<br>Balance outstanding: <b>${money(balance)}</b></div><div class="doc-notes"><b>Payment terms:</b>Payment is due on receipt. Please use invoice number ${esc(d.number)} as your payment reference.<br><br>Wightman Decorating is not VAT registered. No VAT has been charged.</div></div><div class="doc-thanks">Thank you for your business</div></div><div class="doc-footer">INTERIOR &amp; EXTERIOR PAINTING &nbsp; | &nbsp; WOODWORK &amp; JOINERY &nbsp; | &nbsp; QUALITY FINISHES</div>`;
+}
 
 function printFlyer(){document.body.dataset.printTarget='flyer';window.print();}
 window.addEventListener('afterprint',()=>{delete document.body.dataset.printTarget});
