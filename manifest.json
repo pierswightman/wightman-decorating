@@ -1,13 +1,21 @@
 {
-  "name": "Wightman Decorating – Job Manager",
-  "short_name": "Wightman Jobs",
+  "name": "Wightman Interiors \u2013 Job Manager",
+  "short_name": "Wightman Interiors",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f8f4eb",
   "theme_color": "#06383b",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
