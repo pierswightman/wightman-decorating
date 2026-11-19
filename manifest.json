@@ -1,0 +1,9 @@
+{
+  "name": "Wightman Decorating Job Manager",
+  "short_name": "Wightman Jobs",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f5f4",
+  "theme_color": "#263238",
+  "icons": []
+}
