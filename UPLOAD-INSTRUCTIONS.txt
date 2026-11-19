@@ -1,0 +1,9 @@
+WIGHTMAN V5 – FLYER AND ARAMIS-STYLE DOCUMENT HEADINGS UPDATE
+
+Upload these files to the ROOT of your GitHub repository pierswightman/wightman-decorating:
+- index.html (replace existing)
+- sw.js (replace existing)
+- LobsterTwo-Regular.otf (new font file)
+- wightman-flyer.png (new flyer image, if not already uploaded)
+
+Keep manifest.json and wightman-aramis-inspired-wordmark.jpg. Commit changes to main. Then close and reopen the app or refresh it in Safari. The new quotation and invoice headings use the bundled script font; all body text remains clear and readable.
