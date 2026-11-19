@@ -1,149 +1,370 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#202a31"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Wightman Decorating</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#263238">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wightman Jobs">
 <link rel="manifest" href="manifest.json">
+<title>Wightman Decorating – Job Manager</title>
 <style>
-:root{--ink:#202a31;--muted:#65717a;--line:#dce1e4;--paper:#f5f6f6;--white:#fff;--accent:#202a31;--gold:#b99a63;--red:#a33d36}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:#20272c;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:var(--ink);color:white;padding:22px max(18px,calc((100vw - 1100px)/2));padding-top:calc(20px + env(safe-area-inset-top))}
-header h1{font-size:23px;margin:0 0 4px}header p{margin:0;color:#d5dce0;font-size:13px}
-nav{display:flex;gap:8px;overflow:auto;padding:12px max(12px,calc((100vw - 1100px)/2));background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}
-button,.tab{font:inherit;border:1px solid var(--line);border-radius:10px;padding:11px 14px;background:#f4f5f5;color:#20272c;cursor:pointer}
-button.primary,.tab.active{background:var(--ink);color:white;border-color:var(--ink)}button.danger{color:var(--red);background:#fff8f7;border-color:#ead0cd}
-main{max-width:1100px;margin:20px auto;padding:0 14px 60px}.panel,.card{background:white;border:1px solid var(--line);border-radius:15px;padding:18px;margin:0 0 16px;box-shadow:0 2px 8px #1c2b3510}
-h2{font-size:19px;margin:0 0 14px}h3{font-size:16px;margin:0 0 12px}.muted,.hint{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-label{display:block;font-size:13px;font-weight:650;color:#364149;margin:0 0 6px}
-input,select,textarea{font:inherit;width:100%;padding:12px;border:1px solid #cfd6da;border-radius:9px;background:white;color:#20272c;min-width:0}
-textarea{min-height:72px;resize:vertical}.field{min-width:0}.full{grid-column:1/-1}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.room{border:1px solid var(--line);border-radius:12px;margin:14px 0;padding:15px;background:#fcfcfc}
-.roomhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.roomhead strong{font-size:16px}
-.taskgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.task{display:flex;align-items:center;gap:8px;padding:9px;border:1px solid var(--line);border-radius:9px;background:white;font-size:14px}.task input{width:18px;height:18px}
-.taskdetail{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:12px}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{background:#f4f6f6;border-radius:10px;padding:12px}.metric span{display:block;color:var(--muted);font-size:12px}.metric b{font-size:20px}
-.hidden{display:none!important}.sectiontitle{display:flex;align-items:center;justify-content:space-between;gap:10px}
-table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--muted)}
-.quote{border:1px solid var(--line);padding:18px;border-radius:12px;background:white}.quote h2{margin-bottom:4px}
-@media(max-width:700px){main{margin:12px auto}.grid{grid-template-columns:1fr}.taskgrid{grid-template-columns:1fr 1fr}.taskdetail{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.panel,.card{padding:14px}}
-@media print{header,nav,.noprint{display:none!important}body{background:white}.quote{border:0}}
-</style></head>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#20282b;background:#f3f5f4}
+*{box-sizing:border-box}body{margin:0}header{background:#022e33;color:white;padding:14px 18px 14px}
+header h1{margin:0 0 5px} .app-brand-art{display:block;width:min(100%,430px);height:auto;max-height:140px;object-fit:contain;object-position:left center}header p{margin:0;color:#d7e0e1;font-size:13px}
+main{max-width:900px;margin:auto;padding:14px;padding-bottom:90px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px 14px;background:#fff;position:sticky;top:0;z-index:2;border-bottom:1px solid #dfe5e3}
+nav button,.btn{border:0;border-radius:10px;padding:11px 14px;background:#e8eeec;color:#263238;font-weight:650;white-space:nowrap}
+nav button.active,.primary{background:#263238;color:white}
+.card{background:white;border:1px solid #e1e7e4;border-radius:14px;padding:15px;margin:12px 0;box-shadow:0 2px 8px #17252b0a}
+h2{font-size:18px;margin:4px 0 12px}h3{font-size:15px;margin:14px 0 8px}
+label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px;color:#455256}
+input,textarea,select{width:100%;font:inherit;padding:12px;border:1px solid #cbd5d1;border-radius:9px;background:white;color:#20282b}
+textarea{min-height:70px} .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.small{font-size:12px;color:#667579}.metric{font-size:23px;font-weight:750}.job{padding:12px 0;border-bottom:1px solid #e8edeb}.job:last-child{border:0}
+.tag{display:inline-block;background:#edf2f0;padding:4px 8px;border-radius:20px;font-size:11px;margin-left:5px}
+.hidden{display:none!important}.danger{background:#fbe9e7;color:#8a2117}.muted{color:#647276}
+hr{border:0;border-top:1px solid #e6ebe9;margin:14px 0}
+.notice{background:#fff8e5;border:1px solid #ead9a7;border-radius:10px;padding:11px;font-size:12px;line-height:1.45}
+.customer-quote{background:#fffdf8;border:1px solid #e4ded1;color:#283234;padding:0;max-width:820px;margin:0 auto;font-family:Georgia,"Times New Roman",serif}
+.quote-masthead{background:#022e33;color:#fff;padding:14px 24px 18px;position:relative;text-align:center}
+.quote-masthead h1{margin:0 0 8px;font-weight:400;line-height:1}
+.quote-brand-art{display:block;width:min(100%,560px);height:220px;object-fit:contain;margin:0 auto 6px}
+
+.quote-masthead .tagline{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#f0e6d2;line-height:1.55;margin:0 0 8px}
+.quote-brush{height:5px;width:145px;background:#c9ad82;border-radius:8px;margin:13px 0 12px;transform:skewX(-22deg)}
+.quote-contact{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:11px;color:#f4eee3;line-height:1.7}
+.quote-body{padding:25px 28px 22px}
+.quote-title{font-size:22px;color:#263b3b;margin:0 0 18px;letter-spacing:.3px}
+.quote-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;margin-bottom:22px}
+.quote-meta strong{display:block;color:#263b3b;margin-bottom:4px}
+.quote-section-title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-transform:uppercase;letter-spacing:1.3px;font-size:11px;color:#8b7659;border-bottom:1px solid #d9cbb4;padding-bottom:7px;margin:20px 0 10px}
+.quote-scope{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;line-height:1.6;white-space:pre-wrap}
+.quote-total{margin-top:22px;padding:16px 18px;background:#263b3b;color:white;display:flex;justify-content:space-between;align-items:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.quote-total strong{font-size:20px}
+.quote-terms{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:11px;line-height:1.55;color:#566164;margin-top:18px}
+.quote-footer{border-top:1px solid #d9cbb4;margin-top:24px;padding-top:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#6d706b;font-size:10px;text-align:center;letter-spacing:.3px}
+
+.flyer-sheet{max-width:680px;margin:0 auto;background:#fffaf0;border:1px solid #e4dac7;color:#182e30;overflow:hidden;box-shadow:0 4px 18px #182e3014}
+.flyer-top{background:#022e33;padding:22px 24px 18px;text-align:center;color:#f6efdf}
+.flyer-top img{display:block;width:min(100%,540px);height:auto;margin:0 auto 10px}
+.flyer-kicker{font-size:12px;letter-spacing:3px;text-transform:uppercase;line-height:1.7}
+.flyer-main{padding:24px 28px 22px;background:linear-gradient(135deg,#fffaf0,#f5eddf)}
+.flyer-intro{text-align:center;font-family:Georgia,serif;font-size:18px;font-style:italic;color:#7b674e;margin:0 0 20px}
+.flyer-services{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.flyer-service{background:#fffdf8;border:1px solid #e4dac7;border-radius:10px;padding:13px 14px;font-family:Georgia,serif;font-size:16px;line-height:1.35}
+.flyer-service strong{display:block;color:#17383a;font-size:17px;margin-bottom:4px}
+.flyer-trust{text-align:center;background:#ead9b9;color:#17383a;padding:16px;font-family:Georgia,serif;font-size:21px;font-style:italic;margin-top:18px}
+.flyer-cta{background:#022e33;color:#f6efdf;text-align:center;padding:13px;font-size:12px;letter-spacing:2.4px;text-transform:uppercase}
+.flyer-contact{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;padding:16px 12px;font-size:12px;line-height:1.5;background:#fffaf0}
+.flyer-contact strong{display:block;font-size:13px;color:#17383a}
+@media(max-width:520px){.flyer-services{grid-template-columns:1fr}.flyer-contact{grid-template-columns:1fr}}
+
+@media print{
+  body{background:white!important}
+  body *{visibility:hidden!important}
+  #quotePreview,#quotePreview *,#invoicePreview,#invoicePreview *,#flyerPreview,#flyerPreview *{visibility:visible!important}
+  #quotePreview,#invoicePreview,#flyerPreview{position:absolute;left:0;top:0;width:100%;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}
+  #quotePreview>.no-print,#invoicePreview>.no-print,#flyerPreview>.no-print,.actions{display:none!important}
+  .customer-quote{max-width:none;border:0}
+  .quote-masthead{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .quote-brand-art{max-height:190px}
+  .quote-total{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:14mm}
+  body[data-print-target="flyer"] *{visibility:hidden!important}
+  body[data-print-target="flyer"] #flyerPreview,body[data-print-target="flyer"] #flyerPreview *{visibility:visible!important}
+  body[data-print-target="flyer"] #flyerPreview{position:absolute;left:0;top:0;width:100%;max-width:none;margin:0!important;border:0!important;box-shadow:none!important}
+  body[data-print-target="flyer"] #flyerPreview .no-print{display:none!important}
+  body[data-print-target="flyer"] @page{size:A5 portrait;margin:8mm}
+}
+</style>
+</head>
 <body>
-<header><h1>Wightman Decorating</h1><p>Customer, room-by-room quotation and job-cost manager</p></header>
+<header><img class="app-brand-art" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating"><p>Customer, quotation and job-cost manager</p></header>
 <nav>
-<button class="tab active" data-tab="overview">Overview</button><button class="tab" data-tab="job">New job</button><button class="tab" data-tab="records">Saved jobs</button><button class="tab" data-tab="backup">Backup</button>
+<button class="active" data-tab="dashboard">Overview</button>
+<button data-tab="jobform">New job</button>
+<button data-tab="records">Saved jobs</button>
+<button data-tab="invoices">Invoices</button>
+<button data-tab="flyer">Flyer</button>
+<button data-tab="backup">Backup</button>
 </nav>
 <main>
-<section id="overview">
-<div class="panel"><div class="sectiontitle"><div><h2>Job overview</h2><p class="muted">Build detailed estimates room by room, then compare them with actual job costs.</p></div><button class="primary" onclick="newJob()">+ New job</button></div>
-<div class="metrics"><div class="metric"><span>Saved jobs</span><b id="jobCount">0</b></div><div class="metric"><span>Accepted / active</span><b id="activeCount">0</b></div><div class="metric"><span>Completed</span><b id="completedCount">0</b></div><div class="metric"><span>Average margin</span><b id="avgMargin">—</b></div></div></div>
-<div class="card"><h2>Recent jobs</h2><div id="recentJobs" class="muted">No saved jobs yet.</div></div>
+<section id="dashboard">
+<div class="card"><h2>Business overview</h2><div class="grid">
+<div><div class="small">Saved jobs</div><div class="metric" id="countJobs">0</div></div>
+<div><div class="small">Accepted / completed</div><div class="metric" id="countActive">0</div></div>
+</div><hr><p class="small">Create a customer job, build an estimate and save it on this iPad.</p><button class="btn primary" onclick="showTab('jobform')">＋ Create a job</button></div>
+<div class="notice">Your records are stored in this browser on this iPad. Export a backup regularly. Clearing Safari website data or removing the app may erase locally stored records.</div>
+<div class="card"><h2>Recent jobs</h2><div id="recent"></div></div>
 </section>
 
-<section id="job" class="hidden">
-<div class="panel">
-<div class="sectiontitle"><h2 id="formTitle">New quotation</h2><span class="muted">All figures in GBP (£)</span></div>
+<section id="jobform" class="hidden">
+<div class="card">
+<h2 id="formTitle">New customer / job</h2>
 <input type="hidden" id="editId">
 <div class="grid">
-<div class="field"><label>Customer name</label><input id="customer" placeholder="Customer name"></div>
-<div class="field"><label>Telephone</label><input id="phone" type="tel" placeholder="Telephone number"></div>
-<div class="field"><label>Email</label><input id="email" type="email" placeholder="Email address"></div>
-<div class="field"><label>Property / job address</label><input id="address" placeholder="Full address"></div>
-<div class="field"><label>Quote date</label><input id="date" type="date"></div>
-<div class="field"><label>Job status</label><select id="status"><option>Estimate</option><option>Sent</option><option>Accepted</option><option>In progress</option><option>Completed</option><option>Declined</option></select></div>
-<div class="field full"><label>General notes / scope</label><textarea id="notes" placeholder="Access, customer requests, exclusions, site notes..."></textarea></div>
-</div></div>
-
-<div class="panel">
-<div class="sectiontitle"><div><h2>Rooms and areas</h2><p class="muted">Select the work in each room, then estimate the time in working days. Use 0.25 for a quarter day, 0.5 for half a day, 1 for a full day.</p></div><button class="primary" onclick="addRoom()">+ Add room</button></div>
-<div id="rooms"></div>
+<div><label>Customer name</label><input id="customer" autocomplete="name" placeholder="Customer name"></div>
+<div><label>Telephone</label><input id="phone" type="tel" placeholder="Phone number"></div>
+<div><label>Email</label><input id="email" type="email" placeholder="Email address"></div>
+<div><label>Property / job address</label><input id="address" placeholder="Full address"></div>
 </div>
-
-<div class="panel">
-<div class="sectiontitle"><div><h2>Floor sanding and finishing</h2><p class="muted">Separate from decorating. Add each floor area independently.</p></div><button onclick="addFloor()">+ Add floor area</button></div>
-<div id="floors"></div>
-</div>
-
-<div class="panel">
-<h2>Rates and internal costing</h2>
+<label>Job description / notes</label><textarea id="notes" placeholder="Work required, access, condition, preparation..."></textarea>
 <div class="grid">
-<div class="field"><label>Decorating day rate (£/day)</label><input id="decorRate" type="number" step="5" value="200" oninput="recalc()"></div>
-<div class="field"><label>Working day</label><input value="8 hours on site (about 7 productive hours)" disabled></div>
-<div class="field"><label>Additional materials / sundries (£)</label><input id="extraMaterials" type="number" value="0" oninput="recalc()"></div>
-<div class="field"><label>Travel / parking / other costs (£)</label><input id="otherCosts" type="number" value="0" oninput="recalc()"></div>
-<div class="field"><label>Overhead allowance (£)</label><input id="overheads" type="number" value="0" oninput="recalc()"></div>
-<div class="field"><label>Contingency (£)</label><input id="contingency" type="number" value="0" oninput="recalc()"></div>
-</div></div>
-
-<div class="panel">
-<h2>Estimate summary — internal use</h2>
-<p class="hint" style="margin-top:0">Estimated decorating time: <b id="estimatedDays">0 days</b></p>
-<div class="metrics">
-<div class="metric"><span>Customer price</span><b id="sell">£0.00</b></div>
-<div class="metric"><span>Estimated expenses</span><b id="cost">£0.00</b></div>
-<div class="metric"><span>Contribution</span><b id="contribution">£0.00</b></div>
-<div class="metric"><span>Contribution margin</span><b id="margin">0%</b></div>
+<div><label>Job status</label><select id="status"><option>Estimate</option><option>Quote sent</option><option>Accepted</option><option>In progress</option><option>Completed</option><option>Declined</option></select></div>
+<div><label>Quote date</label><input id="date" type="date"></div>
 </div>
-<p class="hint">The customer price is based on estimated decorating days × your day rate, plus floor sanding. Estimated expenses are materials, travel, overheads and contingency entered above. The balance is before tax and any costs you have not entered.</p>
-<div class="actions noprint"><button class="primary" onclick="saveJob()">Save job</button><button onclick="showQuote()">Quotation preview</button><button onclick="clearForm()">Clear form</button></div>
-</div>
-
-<div class="panel hidden" id="quotePanel"><div class="sectiontitle"><h2>Customer quotation preview</h2><button class="noprint" onclick="window.print()">Print / Save PDF</button></div><div id="quoteContent" class="quote"></div><div class="actions noprint"><button onclick="copyQuote()">Copy quotation text</button></div></div>
-
-<div class="panel">
-<h2>Actual costs — complete when the job is finished</h2>
-<p class="muted">These entries do not change the original estimate. They let you compare what you expected with what happened.</p>
+<hr><h3>Room-by-room decorating estimator</h3>
+<p class="small">Add each room, choose its size, work required and overall condition. The app calculates a starting labour allowance; you can review the result before quoting.</p>
+<div id="roomEstimator"></div><input type="hidden" id="decorDays" value="0">
+<div class="actions"><button class="btn" type="button" onclick="addRoom()">＋ Add room</button></div>
+<div class="notice" id="roomEstimateSummary">Add a room to calculate the estimated decorating time.</div>
 <div class="grid">
-<div class="field"><label>Actual time on job (working days)</label><input id="actualDays" type="number" min="0" step=".25" oninput="recalc()"></div>
-<div class="field"><label>Actual materials (£)</label><input id="actualMaterials" type="number" min="0" oninput="recalc()"></div>
-<div class="field"><label>Actual other expenses (£)</label><input id="actualOther" type="number" min="0" oninput="recalc()"></div>
-<div class="field"><label>Final amount charged (£)</label><input id="finalPrice" type="number" min="0" oninput="recalc()"></div>
-</div><div class="metrics" style="margin-top:12px"><div class="metric"><span>Estimated time</span><b id="estimateTimeCompare">—</b></div><div class="metric"><span>Actual time</span><b id="actualTimeCompare">—</b></div><div class="metric"><span>Actual job cost</span><b id="actualCost">—</b></div><div class="metric"><span>Actual contribution</span><b id="actualContribution">—</b></div><div class="metric"><span>Difference vs estimate</span><b id="costDifference">—</b></div><div class="metric"><span>Actual margin</span><b id="actualMargin">—</b></div></div>
+<div><label>Day rate (£ per 7-hour day)</label><input id="decorRate" type="number" min="0" step="10" value="200"></div>
+<div><label>Decorating materials (£)</label><input id="decorMaterials" type="number" min="0" step="1" value="0"></div>
+<div><label>Other decorating costs (£)</label><input id="decorOther" type="number" min="0" step="1" value="0"></div>
+</div>
+<p class="small">Your day rate remains £200 for 7 working hours. The room allowances are initial guide values, not industry guarantees; actual job records will help refine them over time.</p>
+<hr><h3>Floor sanding estimate</h3>
+<div class="grid">
+<div><label>Floor area (m²)</label><input id="floorArea" type="number" min="0" step=".1" value="0"></div>
+<div><label>Rate (£/m²)</label><input id="floorRate" type="number" min="0" step="1" value="30"></div>
+<div><label>Minimum floor job charge (£)</label><input id="floorMinimum" type="number" min="0" step="10" value="250"></div>
+<div><label>Floor materials / finish (£)</label><input id="floorMaterials" type="number" min="0" step="1" value="0"></div>
+<div><label>Floor equipment allowance (£)</label><input id="equipment" type="number" min="0" step="1" value="0"></div>
+<div><label>Other floor costs (£)</label><input id="floorOther" type="number" min="0" step="1" value="0"></div>
+</div>
+<hr><h3>Internal costing</h3>
+<div class="grid">
+<div><label>Estimated total labour hours</label><input id="totalHours" type="number" min="0" step=".5" value="0"></div>
+<div><label>Internal labour cost (£/hour)</label><input id="labourCost" type="number" min="0" step="1" value="15"></div>
+<div><label>Overhead allowance (£)</label><input id="overhead" type="number" min="0" step="1" value="0"></div>
+<div><label>Contingency (£)</label><input id="contingency" type="number" min="0" step="1" value="0"></div>
+</div>
+<div class="card" style="background:#f7f9f8">
+<div class="grid">
+<div><div class="small">Estimated customer price</div><div class="metric" id="sellTotal">£0.00</div></div>
+<div><div class="small">Estimated job cost</div><div class="metric" id="costTotal">£0.00</div></div>
+<div><div class="small">Estimated contribution</div><div class="metric" id="profitTotal">£0.00</div></div>
+<div><div class="small">Contribution margin</div><div class="metric" id="marginTotal">0%</div></div>
+</div></div>
+<div class="actions"><button class="btn primary" onclick="saveJob()">Save job</button><button class="btn" onclick="previewQuote()">Quotation preview</button><button class="btn" onclick="clearForm()">Clear form</button></div>
+</div>
+<div class="card hidden" id="quotePreview">
+<div class="no-print"><h2>Customer quotation preview</h2><p class="small">This is the customer-facing version. Use Print / Save PDF to create a copy to send.</p></div>
+<div id="quoteText" class="customer-quote"></div>
+<div class="actions no-print"><button class="btn primary" onclick="copyQuote()">Copy quotation</button><button class="btn" onclick="window.print()">Print / Save PDF</button></div>
+</div>
+<div class="card" id="actualCostsCard">
+<h3>Actual costs — complete when the job is finished</h3>
+<p class="small">Record what happened. These figures do not change the original quotation; they help improve future estimates.</p>
+<div class="grid">
+<div><label>Actual working days</label><input id="actualDays" type="number" min="0" step="0.5" value="0"></div>
+<div><label>Actual materials (£)</label><input id="actualMaterials" type="number" min="0" step="0.01" value="0"></div>
+<div><label>Actual other expenses (£)</label><input id="actualOther" type="number" min="0" step="0.01" value="0"></div>
+<div><label>Final amount charged (£)</label><input id="finalCharged" type="number" min="0" step="0.01" value="0"></div>
+</div>
+<div class="notice" id="actualSummary">Complete these figures when the work is finished.</div>
 </div>
 </section>
 
-<section id="records" class="hidden"><div class="panel"><h2>Saved jobs</h2><input id="search" placeholder="Search customer, address or room..." oninput="renderRecords()"><div id="recordsList"></div></div></section>
-<section id="backup" class="hidden"><div class="panel"><h2>Backup and restore</h2><p class="muted">Export a copy regularly and keep it somewhere safe, such as iCloud Drive. Data is stored in this browser on this iPad, not in your GitHub website.</p><div class="actions"><button class="primary" onclick="exportData()">Export backup</button><label class="tab" style="display:inline-block">Import backup<input type="file" accept="application/json" id="importFile" style="display:none" onchange="importData(event)"></label></div></div></section>
+<section id="records" class="hidden"><div class="card"><h2>Saved jobs</h2><input id="search" placeholder="Search customer, address or job..." oninput="renderRecords()"><div id="allRecords"></div></div></section>
+
+<section id="invoices" class="hidden">
+ <div class="card"><h2>Invoices</h2>
+ <div class="grid">
+ <div><div class="small">Invoices issued</div><div class="metric" id="invoiceCount">0</div></div>
+ <div><div class="small">Outstanding</div><div class="metric" id="invoiceOutstanding">£0.00</div></div>
+ <div><div class="small">Paid</div><div class="metric" id="invoicePaid">£0.00</div></div>
+ </div>
+ <div class="actions"><button class="btn primary" onclick="newInvoice()">＋ Create standalone invoice</button></div>
+ <input id="invoiceSearch" placeholder="Search invoice number or customer..." oninput="renderInvoices()"><div id="invoiceList"></div></div>
+ <div class="card hidden" id="invoiceEditor"><h2 id="invoiceFormTitle">New invoice</h2><input type="hidden" id="invoiceId">
+ <div class="grid">
+ <div><label>Invoice number</label><input id="invoiceNumber" readonly></div>
+ <div><label>Invoice date</label><input id="invoiceDate" type="date"></div>
+ <div><label>Payment terms</label><input value="Due on receipt" readonly></div>
+ <div><label>Payment status</label><select id="invoiceStatus"><option>Unpaid</option><option>Part-paid</option><option>Paid</option></select></div>
+ <div><label>Customer name</label><input id="invoiceCustomer"></div>
+ <div><label>Telephone</label><input id="invoicePhone" type="tel"></div>
+ <div><label>Email</label><input id="invoiceEmail" type="email"></div>
+ <div><label>Billing address</label><input id="invoiceAddress"></div></div>
+ <label>Description of work</label><textarea id="invoiceDescription"></textarea>
+ <div class="grid"><div><label>Amount (£)</label><input id="invoiceAmount" type="number" min="0" step="0.01" value="0"></div>
+ <div><label>Amount paid (£)</label><input id="invoicePaidAmount" type="number" min="0" step="0.01" value="0"></div></div>
+ <div class="notice">Not VAT registered — no VAT is charged. Payment is due on receipt.</div>
+ <div class="actions"><button class="btn primary" onclick="saveInvoice()">Save invoice</button><button class="btn" onclick="previewInvoice()">Invoice preview</button><button class="btn" onclick="closeInvoiceEditor()">Close</button></div></div>
+ <div class="card hidden" id="invoicePreview"><div class="no-print"><h2>Customer invoice preview</h2><p class="small">Print or save as PDF to send to your customer.</p></div>
+ <div id="invoiceText" class="customer-quote"></div><div class="actions no-print"><button class="btn primary" onclick="window.print()">Print / Save PDF</button></div></div>
+</section>
+
+<section id="flyer" class="hidden">
+<div class="card"><h2>Business flyer</h2><p class="small">A print-ready flyer using the approved Wightman wordmark. Use Print / Save PDF to create a copy for customers.</p><div class="actions no-print"><button class="btn primary" onclick="printFlyer()">Print / Save flyer PDF</button></div>
+<div id="flyerPreview" class="flyer-sheet">
+ <div class="flyer-top"><img src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating"><div class="flyer-kicker">Professional decorating<br>For homes &amp; businesses</div></div>
+ <div class="flyer-main"><p class="flyer-intro">Local, experienced &amp; trusted</p><div class="flyer-services">
+  <div class="flyer-service"><strong>Interior &amp; Exterior Painting</strong>Careful preparation and quality finishes</div>
+  <div class="flyer-service"><strong>Woodwork &amp; Joinery</strong>Doors, windows, skirting and detailed finishes</div>
+  <div class="flyer-service"><strong>Walls, Ceilings &amp; Feature Finishes</strong>Refresh rooms and bring spaces together</div>
+  <div class="flyer-service"><strong>High-Quality, Clean &amp; Reliable Service</strong>Respectful working practices and attention to detail</div>
+ </div><div class="flyer-trust">A professional finish, from preparation to completion</div></div>
+ <div class="flyer-cta">Free, no-obligation quotations</div>
+ <div class="flyer-contact"><div><strong>07903 806275</strong>Telephone</div><div><strong>pierswightman@gmail.com</strong>Email</div><div><strong>Frome &amp; surrounding areas</strong>Somerset</div></div>
+</div></div></section>
+
+<section id="backup" class="hidden"><div class="card"><h2>Backup and restore</h2><p class="small">Export a copy of your saved jobs, invoices and invoice numbering. Keep the file somewhere safe, such as iCloud Drive. You can import it later on this iPad.</p><div class="actions"><button class="btn primary" onclick="exportData()">Export backup</button><label class="btn" style="display:inline-block">Import backup<input type="file" accept="application/json" id="importFile" style="display:none" onchange="importData(event)"></label></div><hr><button class="btn danger" onclick="clearAll()">Delete all saved jobs</button></div></section>
 </main>
 <script>
 const KEY='wightmanDecoratingJobsV1';
-let jobs=[];try{jobs=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){jobs=[]}
-let rooms=[],floors=[],quoteText='';
-const $=id=>document.getElementById(id), val=id=>$(id)?.value||'', num=id=>Math.max(0,Number(val(id))||0), money=n=>'£'+(Number(n)||0).toFixed(2), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
-function showTab(t){document.querySelectorAll('main>section').forEach(s=>s.classList.toggle('hidden',s.id!==t));document.querySelectorAll('.tab[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));if(t==='records')renderRecords();if(t==='overview')renderDash();window.scrollTo(0,0)}
-function newJob(){clearForm();showTab('job')}
-function clearForm(){['editId','customer','phone','email','address','notes','extraMaterials','otherCosts','overheads','contingency','actualDays','actualMaterials','actualOther','finalPrice'].forEach(id=>$(id).value='');$('date').value=new Date().toISOString().slice(0,10);$('status').value='Estimate';$('decorRate').value=200;rooms=[];floors=[];addRoom('Living room');renderFloors();$('formTitle').textContent='New quotation';$('quotePanel').classList.add('hidden');recalc()}
-function addRoom(name=''){rooms.push({id:Date.now()+Math.random(),name,wall:false,ceiling:false,skirting:false,architraves:false,doors:false,windows:false,stairs:false,radiators:false,cupboards:false,wallpaper:false,repairs:false,prep:false,days:0,materials:0,other:0,notes:''});renderRooms()}
-function addFloor(){floors.push({id:Date.now()+Math.random(),name:'',area:0,rate:30,min:250,materials:0,equipment:0,other:0,hours:0});renderFloors();recalc()}
-function renderRooms(){$('rooms').innerHTML=rooms.map((r,i)=>`<div class="room"><div class="roomhead"><strong>Room ${i+1}</strong><button class="danger" onclick="removeRoom(${i})">Remove room</button></div>
-<div class="grid"><div class="field"><label>Room / area name</label><input value="${esc(r.name)}" onchange="roomVal(${i},'name',this.value)" placeholder="e.g. Main bedroom, hallway, landing"></div><div class="field"><label>Room dimensions / notes</label><input placeholder="Optional measurements" value="${esc(r.dimensions||'')}" onchange="roomVal(${i},'dimensions',this.value)"></div></div>
-<label style="margin-top:14px">Select work required</label><div class="taskgrid">${[['wall','Walls'],['ceiling','Ceiling'],['skirting','Skirting boards'],['architraves','Architraves'],['doors','Doors / frames'],['windows','Window frames / sills'],['stairs','Staircase / bannister / spindles'],['radiators','Radiators'],['cupboards','Cupboards / shelving'],['wallpaper','Wallpaper / feature wall'],['repairs','Filling / plaster repairs'],['prep','Extra preparation / stain blocking']].map(([k,l])=>`<label class="task"><input type="checkbox" ${r[k]?'checked':''} onchange="roomVal(${i},'${k}',this.checked)">${l}</label>`).join('')}</div>
-<div class="taskdetail"><div><label>Estimated time (working days)</label><input type="number" min="0" step=".25" value="${r.days??0}" onchange="roomVal(${i},'days',this.value)"></div><div><label>Room materials (£)</label><input type="number" min="0" value="${r.materials}" onchange="roomVal(${i},'materials',this.value)"></div><div><label>Other room costs (£)</label><input type="number" min="0" value="${r.other}" onchange="roomVal(${i},'other',this.value)"></div><div><label>Room-specific notes</label><input value="${esc(r.notes)}" onchange="roomVal(${i},'notes',this.value)" placeholder="Condition, access, coats..."></div></div></div>`).join('');}
-function roomVal(i,k,v){rooms[i][k]=['name','dimensions','notes'].includes(k)?v:(['wall','ceiling','skirting','architraves','doors','windows','stairs','radiators','cupboards','wallpaper','repairs','prep'].includes(k)?v:(Number(v)||0));recalc()}
-function removeRoom(i){if(confirm('Remove this room?')){rooms.splice(i,1);renderRooms();recalc()}}
-function renderFloors(){$('floors').innerHTML=floors.length?floors.map((f,i)=>`<div class="room"><div class="roomhead"><strong>Floor area ${i+1}</strong><button class="danger" onclick="removeFloor(${i})">Remove</button></div><div class="grid"><div><label>Room / area</label><input value="${esc(f.name)}" placeholder="e.g. Lounge, bedroom, corridor" onchange="floorVal(${i},'name',this.value)"></div><div><label>Floor area (m²)</label><input type="number" min="0" step=".1" value="${f.area}" onchange="floorVal(${i},'area',this.value)"></div><div><label>Rate (£/m²)</label><input type="number" min="0" step=".5" value="${f.rate}" onchange="floorVal(${i},'rate',this.value)"></div><div><label>Minimum charge (£)</label><input type="number" min="0" value="${f.min}" onchange="floorVal(${i},'min',this.value)"></div><div><label>Materials / finish (£)</label><input type="number" min="0" value="${f.materials}" onchange="floorVal(${i},'materials',this.value)"></div><div><label>Equipment allowance (£)</label><input type="number" min="0" value="${f.equipment}" onchange="floorVal(${i},'equipment',this.value)"></div><div><label>Other costs (£)</label><input type="number" min="0" value="${f.other}" onchange="floorVal(${i},'other',this.value)"></div></div></div>`).join(''):'<p class="muted">No floor sanding areas added.</p>'}
-function floorVal(i,k,v){floors[i][k]=k==='name'?v:(Number(v)||0);recalc()}
-function removeFloor(i){floors.splice(i,1);renderFloors();recalc()}
-function calculate(){let decorDays=rooms.reduce((s,r)=>s+(Number(r.days)||0),0),roomMaterials=rooms.reduce((s,r)=>s+r.materials,0),roomOther=rooms.reduce((s,r)=>s+r.other,0);
-let floorSell=floors.reduce((s,f)=>s+Math.max(f.area*f.rate,f.min),0),floorMaterials=floors.reduce((s,f)=>s+f.materials+f.equipment+f.other,0);
-let rate=num('decorRate'),sell=decorDays*rate+floorSell;
-let cost=roomMaterials+roomOther+floorMaterials+num('extraMaterials')+num('otherCosts')+num('overheads')+num('contingency'),contribution=sell-cost;
-return {decorDays,sell,cost,contribution,margin:sell?contribution/sell*100:0,roomMaterials,roomOther,floorSell,floorMaterials}}
-function recalc(){let c=calculate();$('estimatedDays').textContent=c.decorDays.toFixed(2).replace(/\.?0+$/,'')+' days';$('sell').textContent=money(c.sell);$('cost').textContent=money(c.cost);$('contribution').textContent=money(c.contribution);$('margin').textContent=c.margin.toFixed(1)+'%';
-let ad=val('actualDays')===''?null:num('actualDays'), actualCost=ad===null?null:num('actualMaterials')+num('actualOther')+num('overheads'), fp=val('finalPrice')===''?null:num('finalPrice');$('estimateTimeCompare').textContent=c.decorDays.toFixed(2).replace(/\.?0+$/,'')+' days';$('actualTimeCompare').textContent=ad===null?'—':ad+' days';$('actualCost').textContent=actualCost===null?'—':money(actualCost);$('actualContribution').textContent=actualCost===null||fp===null?'—':money(fp-actualCost);$('costDifference').textContent=actualCost===null?'—':money(actualCost-c.cost);$('actualMargin').textContent=actualCost===null||!fp?'—':((fp-actualCost)/fp*100).toFixed(1)+'%';return c}
-function formData(){let c=recalc();return {customer:val('customer'),phone:val('phone'),email:val('email'),address:val('address'),date:val('date'),status:val('status'),notes:val('notes'),rooms,floors,rates:{decor:num('decorRate')},extraMaterials:num('extraMaterials'),otherCosts:num('otherCosts'),overheads:num('overheads'),contingency:num('contingency'),actual:{days:val('actualDays'),materials:val('actualMaterials'),other:val('actualOther'),finalPrice:val('finalPrice')},calculation:c}}
-function saveJob(){if(!val('customer').trim()){alert('Please enter a customer name first.');return}let d=formData(),id=val('editId')||String(Date.now()),old=jobs.find(j=>j.id===id);Object.assign(d,{id,updated:new Date().toISOString()});if(old){let ix=jobs.findIndex(j=>j.id===id);jobs[ix]=d}else jobs.unshift(d);persist();$('editId').value=id;$('formTitle').textContent='Edit saved job';alert('Job saved on this iPad.');}
+const INVOICE_KEY='wightmanDecoratingInvoicesV1';
+const INVOICE_SEQ_KEY='wightmanDecoratingInvoiceNextV1';
+let jobs=JSON.parse(localStorage.getItem(KEY)||'[]');
+let invoices=JSON.parse(localStorage.getItem(INVOICE_KEY)||'[]');
+let nextInvoiceNumber=Number(localStorage.getItem(INVOICE_SEQ_KEY))||500;
+let rooms=[];
+const fields=['customer','phone','email','address','notes','status','date','decorDays','decorRate','decorMaterials','decorOther','floorArea','floorRate','floorMinimum','floorMaterials','equipment','floorOther','totalHours','labourCost','overhead','contingency','actualDays','actualMaterials','actualOther','finalCharged'];
+const num=id=>Number(document.getElementById(id).value)||0, val=id=>document.getElementById(id).value;
+const money=n=>'£'+(Number(n)||0).toFixed(2);
+const roomBaseDays={
+ 'Bedroom':{Small:0.75,Medium:1.25,Large:1.75},
+ 'Living room':{Small:1.0,Medium:1.5,Large:2.0},
+ 'Dining room':{Small:0.75,Medium:1.25,Large:1.75},
+ 'Hall':{Small:0.75,Medium:1.25,Large:1.75},
+ 'Landing':{Small:0.5,Medium:0.75,Large:1.0},
+ 'Stairs':{Small:0.75,Medium:1.25,Large:1.75},
+ 'Other room':{Small:1.0,Medium:1.5,Large:2.0}
+};
+const conditionFactor={Good:0.85,Average:1.0,Poor:1.35};
+function roomDays(r){
+ const base=roomBaseDays[r.type]?.[r.size]||1;
+ const selected=(r.walls?0.55:0)+(r.ceiling?0.2:0)+(r.woodwork?0.25:0);
+ return selected?Math.round(base*selected*(conditionFactor[r.condition]||1)*100)/100:0;
+}
+function addRoom(data){rooms.push(data||{type:'Bedroom',size:'Medium',condition:'Average',walls:true,ceiling:true,woodwork:true});renderRooms()}
+function removeRoom(i){rooms.splice(i,1);renderRooms()}
+function updateRoom(i,k,v){rooms[i][k]=v;renderRooms()}
+function renderRooms(){
+ const host=document.getElementById('roomEstimator');if(!host)return;
+ host.innerHTML=rooms.map((r,i)=>`<div class="job room-card"><div class="areahead"><strong>Room ${i+1}</strong><button class="btn danger" type="button" onclick="removeRoom(${i})">Remove</button></div>
+ <div class="grid"><div><label>Room type</label><select onchange="updateRoom(${i},'type',this.value)">${Object.keys(roomBaseDays).map(t=>`<option ${r.type===t?'selected':''}>${t}</option>`).join('')}</select></div>
+ <div><label>Room size</label><select onchange="updateRoom(${i},'size',this.value)">${['Small','Medium','Large'].map(t=>`<option ${r.size===t?'selected':''}>${t}</option>`).join('')}</select></div>
+ <div><label>Overall condition</label><select onchange="updateRoom(${i},'condition',this.value)">${['Good','Average','Poor'].map(t=>`<option ${r.condition===t?'selected':''}>${t}</option>`).join('')}</select></div></div>
+ <div class="grid"><label><input type="checkbox" ${r.walls?'checked':''} onchange="updateRoom(${i},'walls',this.checked)"> Walls</label><label><input type="checkbox" ${r.ceiling?'checked':''} onchange="updateRoom(${i},'ceiling',this.checked)"> Ceiling</label><label><input type="checkbox" ${r.woodwork?'checked':''} onchange="updateRoom(${i},'woodwork',this.checked)"> Woodwork</label></div>
+ <p class="small">Estimated labour: <strong>${roomDays(r).toFixed(2)} working days</strong> (${(roomDays(r)*7).toFixed(1)} hours)</p></div>`).join('');
+ const days=rooms.reduce((a,r)=>a+roomDays(r),0);const el=document.getElementById('decorDays');if(el)el.value=days.toFixed(2);
+ const sum=document.getElementById('roomEstimateSummary');if(sum)sum.textContent=rooms.length?`Total estimated decorating time: ${days.toFixed(2)} working days (${(days*7).toFixed(1)} hours). At £200/day: ${money(days*200)} labour.`:'Add a room to calculate the estimated decorating time.';
+ const hrs=document.getElementById('totalHours');if(hrs)hrs.value=(days*7).toFixed(1);
+ if(typeof calc==='function')calc();
+}
+function actualRecalc(){const est=Number(document.getElementById('decorDays').value)||0,days=Number(document.getElementById('actualDays').value)||0,mat=Number(document.getElementById('actualMaterials').value)||0,other=Number(document.getElementById('actualOther').value)||0,charged=Number(document.getElementById('finalCharged').value)||0,labour=days*7*(Number(document.getElementById('labourCost').value)||15),cost=labour+mat+other+(Number(document.getElementById('overhead').value)||0),el=document.getElementById('actualSummary');if(el)el.textContent=`Estimated time: ${est.toFixed(2)} days · Actual time: ${days.toFixed(2)} days · Actual recorded cost: ${money(cost)} · Actual contribution: ${money(charged-cost)}`;}
+function calc(){
+ const decor=num('decorDays')*num('decorRate')+num('decorMaterials')+num('decorOther');
+ const floorArea=num('floorArea'), floor=Math.max(floorArea*num('floorRate'),floorArea>0?num('floorMinimum'):0)+num('floorMaterials')+num('equipment')+num('floorOther');
+ const sell=decor+floor, cost=num('totalHours')*num('labourCost')+num('decorMaterials')+num('decorOther')+num('floorMaterials')+num('equipment')+num('floorOther')+num('overhead')+num('contingency');
+ const profit=sell-cost, margin=sell?profit/sell*100:0;
+ document.getElementById('sellTotal').textContent=money(sell);document.getElementById('costTotal').textContent=money(cost);document.getElementById('profitTotal').textContent=money(profit);document.getElementById('marginTotal').textContent=margin.toFixed(1)+'%';
+ return {decor,floor,sell,cost,profit,margin};
+}
+document.querySelectorAll('#jobform input,#jobform textarea,#jobform select').forEach(el=>el.addEventListener('input',()=>{calc();actualRecalc()}));
+document.querySelectorAll('#actualDays,#actualMaterials,#actualOther,#finalCharged').forEach(el=>el.addEventListener('input',actualRecalc));
+function showTab(id){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='records')renderRecords();if(id==='invoices')renderInvoices();if(id==='dashboard')renderDash();window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+function formData(){let o={};fields.forEach(f=>o[f]=val(f));o.rooms=JSON.parse(JSON.stringify(rooms));return o}
+function saveJob(){const d=formData(), c=calc(), id=val('editId')||String(Date.now());Object.assign(d,{id,updated:new Date().toISOString(),calculation:c});let i=jobs.findIndex(x=>x.id===id);if(i>=0)jobs[i]=d;else jobs.unshift(d);persist();document.getElementById('editId').value=id;document.getElementById('formTitle').textContent='Edit saved job';alert('Job saved on this iPad.');}
 function persist(){localStorage.setItem(KEY,JSON.stringify(jobs));renderDash()}
-function editJob(id){let j=jobs.find(x=>x.id===id);if(!j)return;clearForm();$('editId').value=j.id;['customer','phone','email','address','date','status','notes','extraMaterials','otherCosts','overheads','contingency'].forEach(k=>$(k).value=j[k]??'');$('decorRate').value=j.rates?.decor??j.decorRate??200;rooms=Array.isArray(j.rooms)?j.rooms:[];floors=Array.isArray(j.floors)?j.floors:[];renderRooms();renderFloors();$('actualDays').value=j.actual?.days??'';$('actualMaterials').value=j.actual?.materials??'';$('actualOther').value=j.actual?.other??'';$('finalPrice').value=j.actual?.finalPrice??'';$('formTitle').textContent='Edit saved job';$('quotePanel').classList.add('hidden');recalc();showTab('job')}
-function renderRecords(){let q=val('search').toLowerCase();let list=jobs.filter(j=>(j.customer+' '+j.address+' '+j.notes+' '+(j.rooms||[]).map(r=>r.name).join(' ')).toLowerCase().includes(q));$('recordsList').innerHTML=list.length?list.map(j=>`<div class="room"><b>${esc(j.customer||'Unnamed customer')}</b> · ${esc(j.status||'Estimate')}<div class="muted">${esc(j.address||'No address')} · ${money(j.calculation?.sell||0)} · ${(j.rooms||[]).length} rooms</div><div class="actions"><button onclick="editJob('${j.id}')">Open / edit</button><button class="danger" onclick="deleteJob('${j.id}')">Delete</button></div></div>`).join(''):'<p class="muted">No saved jobs found.</p>'}
+function clearForm(){rooms=[];renderRooms();fields.forEach(f=>{let el=document.getElementById(f);if(el.tagName==='SELECT')el.value='Estimate';else el.value=''});document.getElementById('date').value=new Date().toISOString().slice(0,10);document.getElementById('decorDays').value=0;document.getElementById('decorRate').value=200;document.getElementById('floorRate').value=30;document.getElementById('floorMinimum').value=250;document.getElementById('labourCost').value=15;document.getElementById('editId').value='';document.getElementById('formTitle').textContent='New customer / job';document.getElementById('quotePreview').classList.add('hidden');calc()}
+function editJob(id){let j=jobs.find(x=>x.id===id);if(!j)return;fields.forEach(f=>{const el=document.getElementById(f);if(el)el.value=j[f]??''});rooms=Array.isArray(j.rooms)?JSON.parse(JSON.stringify(j.rooms)):[];renderRooms();document.getElementById('editId').value=j.id;document.getElementById('formTitle').textContent='Edit saved job';calc();showTab('jobform')}
+function renderRecords(){let q=(document.getElementById('search').value||'').toLowerCase();let list=jobs.filter(j=>(j.customer+' '+j.address+' '+j.notes).toLowerCase().includes(q));document.getElementById('allRecords').innerHTML=list.length?list.map(j=>`<div class="job"><b>${esc(j.customer||'Unnamed customer')}</b><span class="tag">${esc(j.status)}</span><div class="small">${esc(j.address||'No address')} · ${money(j.calculation?.sell||0)}</div><div class="actions"><button class="btn" onclick="editJob('${j.id}')">Open / edit</button><button class="btn" onclick="createInvoiceFromJob('${j.id}')">Create invoice</button><button class="btn" onclick="deleteJob('${j.id}')">Delete</button></div></div>`).join(''):'<p class="small">No saved jobs yet.</p>'}
 function deleteJob(id){if(confirm('Delete this job?')){jobs=jobs.filter(j=>j.id!==id);persist();renderRecords()}}
-function renderDash(){$('jobCount').textContent=jobs.length;$('activeCount').textContent=jobs.filter(j=>['Accepted','In progress'].includes(j.status)).length;$('completedCount').textContent=jobs.filter(j=>j.status==='Completed').length;let ms=jobs.map(j=>j.calculation?.margin).filter(x=>Number.isFinite(x));$('avgMargin').textContent=ms.length?(ms.reduce((a,b)=>a+b,0)/ms.length).toFixed(1)+'%':'—';$('recentJobs').innerHTML=jobs.slice(0,6).map(j=>`<div class="room"><b>${esc(j.customer)}</b><div class="muted">${esc(j.status)} · ${money(j.calculation?.sell||0)}</div></div>`).join('')||'No saved jobs yet.'}
-function showQuote(){let c=recalc(),d=formData();let lines=[];d.rooms.forEach(r=>{let tasks=['wall','ceiling','skirting','architraves','doors','windows','stairs','radiators','cupboards','wallpaper','repairs','prep'].filter(k=>r[k]).map(k=>({wall:'Walls',ceiling:'Ceilings',skirting:'Skirting boards',architraves:'Architraves',doors:'Doors and frames',windows:'Window frames and sills',stairs:'Staircase / bannister / spindles',radiators:'Radiators',cupboards:'Cupboards / shelving',wallpaper:'Wallpaper / feature wall',repairs:'Filling / plaster repairs',prep:'Additional preparation'}[k]));lines.push(`<tr><td><b>${esc(r.name||'Room')}</b><br>${esc(tasks.join(', '))}</td><td>${esc(r.notes||'')}</td></tr>`)});d.floors.forEach(f=>lines.push(`<tr><td><b>Floor sanding — ${esc(f.name)}</b><br>${f.area} m², sanding and finishing</td><td></td></tr>`));quoteText=`WIGHTMAN DECORATING\nQuotation for ${d.customer}\n${d.address}\nDate: ${d.date}\n\nScope of work:\n`+d.rooms.map(r=>`${r.name}: `+['wall','ceiling','skirting','architraves','doors','windows','stairs','radiators','cupboards','wallpaper','repairs','prep'].filter(k=>r[k]).map(k=>({wall:'Walls',ceiling:'Ceilings',skirting:'Skirting boards',architraves:'Architraves',doors:'Doors / frames',windows:'Window frames / sills',stairs:'Staircase / bannister / spindles',radiators:'Radiators',cupboards:'Cupboards / shelving',wallpaper:'Wallpaper / feature wall',repairs:'Filling / plaster repairs',prep:'Extra preparation'}[k])).join(', ')).join('\n')+`\n\nTotal quotation: ${money(c.sell)}\n\nThank you for the opportunity to quote for this work.`;$('quoteContent').innerHTML=`<h2>Wightman Decorating</h2><p>Quotation for <b>${esc(d.customer)}</b><br>${esc(d.address)}<br>${esc(d.date)}</p><h3>Scope of work</h3><table>${lines.join('')}</table><h2 style="margin-top:20px">Total quotation: ${money(c.sell)}</h2><p class="muted">Thank you for the opportunity to quote for this work.</p>`;$('quotePanel').classList.remove('hidden');$('quotePanel').scrollIntoView({behavior:'smooth'})}
-function copyQuote(){navigator.clipboard?.writeText(quoteText).then(()=>alert('Quotation copied.')).catch(()=>alert('Copy is not available in this browser.'))}
-function exportData(){let blob=new Blob([JSON.stringify({app:'Wightman Decorating Job Manager',version:4,jobs},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wightman-jobs-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
-function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.jobs))throw Error();if(confirm('Import '+x.jobs.length+' jobs? This replaces the current saved job list.')){jobs=x.jobs.map(j=>({...j,rooms:j.rooms||[],floors:j.floors||[],rates:j.rates||{decor:Number(j.decorRate)||200},actual:j.actual||{}}));persist();alert('Backup imported. Older job records have been retained; add room breakdowns when editing new quotations.')}}catch(err){alert('That backup file could not be read.')}};r.readAsText(f);e.target.value=''}
-function init(){ $('date').value=new Date().toISOString().slice(0,10);renderDash(); }
-init();clearForm();showTab('overview');if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-</script></body></html>
+function renderDash(){document.getElementById('countJobs').textContent=jobs.length;document.getElementById('countActive').textContent=jobs.filter(j=>['Accepted','In progress','Completed'].includes(j.status)).length;document.getElementById('recent').innerHTML=jobs.slice(0,5).map(j=>`<div class="job"><b>${esc(j.customer||'Unnamed customer')}</b><div class="small">${esc(j.status)} · ${money(j.calculation?.sell||0)}</div></div>`).join('')||'<p class="small">No jobs saved yet.</p>'}
+function previewQuote(){
+ const d=formData(),c=calc();
+ const date=d.date?new Date(d.date+'T12:00:00').toLocaleDateString('en-GB'):'';
+ const quoteRef='WD-'+(d.date||new Date().toISOString().slice(0,10)).replaceAll('-','')+'-'+String(d.customer||'JOB').replace(/[^a-z0-9]/gi,'').slice(0,4).toUpperCase();
+ const roomScope=rooms.map(r=>`${r.type} (${r.size}, ${r.condition} condition): ${[r.walls?'walls':'',r.ceiling?'ceiling':'',r.woodwork?'woodwork':''].filter(Boolean).join(', ')}`).join('\n');
+ const scope=esc([d.notes,roomScope].filter(Boolean).join('\n\n')||'Decorating and/or floor sanding work as discussed.');
+ const customer=esc(d.customer||'Customer');
+ const address=esc(d.address||'');
+ const decorLine=num('decorDays')>0?`<p>Decorating labour: ${num('decorDays')} working day(s) at ${money(num('decorRate'))} per 7-hour day — <strong>${money(c.decor-num('decorMaterials')-num('decorOther'))}</strong></p>`:'';
+ const floorLine=num('floorArea')>0?`<p>Floor sanding and finishing: ${num('floorArea')} m² at ${money(num('floorRate'))}/m² — <strong>${money(c.floor-num('floorMaterials')-num('equipment')-num('floorOther'))}</strong></p>`:'';
+ const extraLines=[
+   num('decorMaterials')?`<p>Decorating materials: ${money(num('decorMaterials'))}</p>`:'',
+   num('decorOther')?`<p>Other decorating costs: ${money(num('decorOther'))}</p>`:'',
+   num('floorMaterials')?`<p>Floor materials / finish: ${money(num('floorMaterials'))}</p>`:'',
+   num('equipment')?`<p>Floor equipment: ${money(num('equipment'))}</p>`:'',
+   num('floorOther')?`<p>Other floor costs: ${money(num('floorOther'))}</p>`:''
+ ].join('');
+ document.getElementById('quoteText').innerHTML=`
+ <div class="quote-masthead">
+   <img class="quote-brand-art" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating">
+   <div class="tagline">Professional Decorating<br>For Homes &amp; Businesses</div>
+   <div class="quote-contact">07903 806275 &nbsp; | &nbsp; pierswightman@gmail.com &nbsp; | &nbsp; Frome &amp; Surrounding Areas</div>
+ </div>
+ <div class="quote-body">
+   <h2 class="quote-title">Quotation</h2>
+   <div class="quote-meta">
+     <div><strong>Prepared for</strong>${customer}<br>${address}</div>
+     <div><strong>Quote reference</strong>${quoteRef}<br><strong style="margin-top:8px">Date</strong>${date}</div>
+   </div>
+   <div class="quote-section-title">Scope of work</div>
+   <div class="quote-scope">${scope}</div>
+   ${decorLine}${floorLine}${extraLines}
+   <div class="quote-total"><span>Total quotation</span><strong>${money(c.sell)}</strong></div>
+   <div class="quote-terms">This quotation is valid for 30 days. No deposit is required; payment is due on completion. Any additional repairs, changes to the agreed scope or unforeseen work will be discussed and agreed separately before being carried out.<br><br>Acceptance: ______________________________ &nbsp; Date: ______________</div>
+   <div class="quote-footer">Wightman Decorating &nbsp; · &nbsp; Local, Experienced &amp; Trusted</div>
+ </div>`;
+ document.getElementById('quotePreview').classList.remove('hidden');
+ document.getElementById('quotePreview').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function copyQuote(){
+ const d=formData(),c=calc();
+ const t=`WIGHTMAN DECORATING
+PROFESSIONAL DECORATING FOR HOMES & BUSINESSES
+07903 806275 | pierswightman@gmail.com | Frome & Surrounding Areas
+
+QUOTATION
+Prepared for: ${d.customer}
+Property: ${d.address}
+Date: ${d.date}
+
+SCOPE OF WORK
+${d.notes}
+
+Decorating labour: ${num('decorDays')} day(s) at ${money(num('decorRate'))} per 7-hour day
+Decorating and floor sanding / finishing, including specified materials and costs.
+
+TOTAL QUOTATION: ${money(c.sell)}
+
+This quotation is based on the work described above. Any additional repairs, changes to the agreed scope or unforeseen work will be discussed and agreed separately before being carried out.
+
+Thank you for the opportunity to quote for your work.`;
+ navigator.clipboard?.writeText(t).then(()=>alert('Quotation copied.')).catch(()=>alert(t));
+}
+
+function persistInvoices(){localStorage.setItem(INVOICE_KEY,JSON.stringify(invoices));localStorage.setItem(INVOICE_SEQ_KEY,String(nextInvoiceNumber));renderInvoices();renderDash()}
+function newInvoice(){clearInvoiceEditor();document.getElementById('invoiceNumber').value=String(nextInvoiceNumber);document.getElementById('invoiceEditor').classList.remove('hidden');document.getElementById('invoicePreview').classList.add('hidden');document.getElementById('invoiceFormTitle').textContent='New standalone invoice'}
+function clearInvoiceEditor(){['invoiceId','invoiceNumber','invoiceCustomer','invoicePhone','invoiceEmail','invoiceAddress','invoiceDescription'].forEach(id=>document.getElementById(id).value='');document.getElementById('invoiceDate').value=new Date().toISOString().slice(0,10);document.getElementById('invoiceStatus').value='Unpaid';document.getElementById('invoiceAmount').value='0';document.getElementById('invoicePaidAmount').value='0'}
+function closeInvoiceEditor(){document.getElementById('invoiceEditor').classList.add('hidden');document.getElementById('invoicePreview').classList.add('hidden')}
+function createInvoiceFromJob(id){const j=jobs.find(x=>x.id===id);if(!j)return;showTab('invoices');newInvoice();document.getElementById('invoiceCustomer').value=j.customer||'';document.getElementById('invoicePhone').value=j.phone||'';document.getElementById('invoiceEmail').value=j.email||'';document.getElementById('invoiceAddress').value=j.address||'';document.getElementById('invoiceDescription').value=j.notes||'Decorating work as quoted';document.getElementById('invoiceAmount').value=Number(j.calculation?.sell||0).toFixed(2);document.getElementById('invoiceFormTitle').textContent='Invoice from saved job'}
+function invoiceData(){return {id:document.getElementById('invoiceId').value||String(Date.now()),number:document.getElementById('invoiceNumber').value,date:document.getElementById('invoiceDate').value,customer:document.getElementById('invoiceCustomer').value.trim(),phone:document.getElementById('invoicePhone').value.trim(),email:document.getElementById('invoiceEmail').value.trim(),address:document.getElementById('invoiceAddress').value.trim(),description:document.getElementById('invoiceDescription').value.trim(),amount:Number(document.getElementById('invoiceAmount').value)||0,paidAmount:Number(document.getElementById('invoicePaidAmount').value)||0,status:document.getElementById('invoiceStatus').value,terms:'Due on receipt',updated:new Date().toISOString()}}
+function saveInvoice(){const d=invoiceData();if(!d.customer){alert('Please enter the customer name.');return}if(!d.description){alert('Please enter a description of the work.');return}if(d.amount<0||d.paidAmount<0||d.paidAmount>d.amount){alert('Please check the invoice amount and amount paid.');return}d.status=d.paidAmount===d.amount&&d.amount>0?'Paid':d.paidAmount>0?'Part-paid':d.status;const old=invoices.find(x=>x.id===d.id);if(old){invoices=invoices.map(x=>x.id===d.id?d:x)}else{if(!d.number)d.number=String(nextInvoiceNumber);invoices.unshift(d);nextInvoiceNumber=Math.max(nextInvoiceNumber,Number(d.number)+1)}persistInvoices();document.getElementById('invoiceId').value=d.id;document.getElementById('invoiceNumber').value=d.number;alert('Invoice saved on this iPad.')}
+function editInvoice(id){const d=invoices.find(x=>x.id===id);if(!d)return;for(const [field,key] of Object.entries({invoiceId:'id',invoiceNumber:'number',invoiceDate:'date',invoiceCustomer:'customer',invoicePhone:'phone',invoiceEmail:'email',invoiceAddress:'address',invoiceDescription:'description',invoiceAmount:'amount',invoicePaidAmount:'paidAmount',invoiceStatus:'status'})){document.getElementById(field).value=d[key]??''}document.getElementById('invoiceFormTitle').textContent='Edit invoice '+d.number;document.getElementById('invoiceEditor').classList.remove('hidden');document.getElementById('invoicePreview').classList.add('hidden')}
+function renderInvoices(){const q=(document.getElementById('invoiceSearch')?.value||'').toLowerCase();const list=invoices.filter(i=>(i.number+' '+i.customer+' '+i.address).toLowerCase().includes(q));const outstanding=invoices.reduce((s,i)=>s+Math.max(0,(Number(i.amount)||0)-(Number(i.paidAmount)||0)),0);const paid=invoices.reduce((s,i)=>s+(Number(i.paidAmount)||0),0);for(const [id,v] of Object.entries({invoiceCount:invoices.length,invoiceOutstanding:money(outstanding),invoicePaid:money(paid)})){const el=document.getElementById(id);if(el)el.textContent=v}const el=document.getElementById('invoiceList');if(el)el.innerHTML=list.length?list.map(i=>`<div class="job"><b>Invoice ${esc(i.number)} — ${esc(i.customer)}</b><span class="tag">${esc(i.status||'Unpaid')}</span><div class="small">${esc(i.date||'')} · Total ${money(i.amount)} · Balance ${money(Math.max(0,(Number(i.amount)||0)-(Number(i.paidAmount)||0)))}</div><div class="actions"><button class="btn" onclick="editInvoice('${i.id}')">Open / edit</button><button class="btn" onclick="previewSavedInvoice('${i.id}')">Preview</button><button class="btn danger" onclick="deleteInvoice('${i.id}')">Delete</button></div></div>`).join(''):'<p class="small">No invoices saved yet.</p>'}
+function deleteInvoice(id){if(confirm('Delete this invoice record?')){invoices=invoices.filter(i=>i.id!==id);persistInvoices()}}
+function previewSavedInvoice(id){const d=invoices.find(x=>x.id===id);if(!d)return;renderInvoiceMarkup(d);document.getElementById('invoiceEditor').classList.add('hidden');document.getElementById('invoicePreview').classList.remove('hidden')}
+function previewInvoice(){const d=invoiceData();if(!d.customer||!d.description){alert('Enter the customer name and work description first.');return}renderInvoiceMarkup(d);document.getElementById('invoicePreview').classList.remove('hidden')}
+function renderInvoiceMarkup(d){const date=d.date?new Date(d.date+'T12:00:00').toLocaleDateString('en-GB'):'';const balance=Math.max(0,(Number(d.amount)||0)-(Number(d.paidAmount)||0));document.getElementById('invoiceText').innerHTML=`<div class="quote-masthead"><img class="quote-brand-art" src="wightman-aramis-inspired-wordmark.jpg" alt="Wightman Decorating"><div class="tagline">Professional Decorating<br>For Homes &amp; Businesses</div><div class="quote-contact">07903 806275 &nbsp; | &nbsp; pierswightman@gmail.com &nbsp; | &nbsp; Frome &amp; Surrounding Areas</div></div><div class="quote-body"><h2 class="quote-title">Invoice</h2><div class="quote-meta"><div><strong>Invoice to</strong>${esc(d.customer)}<br>${esc(d.address||'')}</div><div><strong>Invoice number</strong>${esc(d.number)}<br><strong style="margin-top:8px">Invoice date</strong>${esc(date)}<br><strong style="margin-top:8px">Payment terms</strong>Due on receipt</div></div><div class="quote-section-title">Description of work</div><div class="quote-scope">${esc(d.description)}</div><div class="quote-total"><span>Invoice total</span><strong>${money(d.amount)}</strong></div><div class="quote-terms"><strong>Payment due on receipt.</strong><br>Amount paid: ${money(d.paidAmount)}<br>Balance outstanding: <strong>${money(balance)}</strong><br><br>Payment by bank transfer:<br>Account name: Piers Wightman<br>Account number: 55788685<br>Sort code: 23-05-80<br><br>Wightman Decorating is not VAT registered. No VAT has been charged.</div><div class="quote-footer">Thank you for your business · Wightman Decorating</div></div>`}
+
+function printFlyer(){document.body.dataset.printTarget='flyer';window.print();}
+window.addEventListener('afterprint',()=>{delete document.body.dataset.printTarget});
+function exportData(){let blob=new Blob([JSON.stringify({app:'Wightman Decorating Job Manager',version:2,jobs,invoices,nextInvoiceNumber},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='wightman-jobs-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.jobs))throw Error();if(confirm('Import '+x.jobs.length+' jobs and '+(x.invoices||[]).length+' invoices? This will replace the current saved records.')){jobs=x.jobs;invoices=Array.isArray(x.invoices)?x.invoices:[];nextInvoiceNumber=Number(x.nextInvoiceNumber)||500;persist();persistInvoices();alert('Backup imported.')}}catch(err){alert('That backup file could not be read.')}};r.readAsText(f)}
+function clearAll(){if(confirm('Permanently delete every saved job on this iPad? Export a backup first if you may need these records.')){jobs=[];persist();renderRecords()}}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+clearForm();addRoom();renderDash();actualRecalc();
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>

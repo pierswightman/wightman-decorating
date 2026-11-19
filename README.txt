@@ -1,27 +1,30 @@
-WIGHTMAN DECORATING — VERSION 4
+WIGHTMAN DECORATING — JOB MANAGER v5
 
-This version simplifies decorating estimates around working days rather than task-by-task hours.
+This package updates the existing GitHub Pages app. It is designed for use on your iPad in Safari.
 
-ESTIMATING METHOD
-- Default decorating charge: £200 per working day (editable per quotation)
-- Working day assumption: 8 hours on site, including lunch; approximately 7 productive hours
-- Enter one time estimate for each room in working days: 0.25 = quarter day, 0.5 = half day, 1 = full day
-- Decorating price = total room days × day rate
-- Floor sanding remains separately priced by square metre, with the existing editable rate and minimum charge
-- Materials, travel, overheads and contingency are entered separately
-- Actual time can be entered in working days after completion, alongside actual materials, other expenses and final price
+WHAT IS INCLUDED
+- Updated Wightman Decorating wordmark based on the approved Aramis Italic reference. This is a custom visual approximation, not the licensed Aramis Italic font file.
+- The same wordmark is used in the app header, customer quotation and invoice. A new Flyer tab provides a matching flyer that can be printed or saved as PDF.
+- Other interface and document text remains in the existing clean sans-serif / serif styles; the decorative treatment is restricted to the brand wordmark.
+- Room-by-room decorating estimator. Add whole rooms, choose room type and size, select walls / ceiling / woodwork, and rate overall condition as Good, Average or Poor.
+- Day rate: £200 for 7 working hours. Room allowances are starting estimates and should be calibrated against completed jobs.
+- Floor sanding estimator: £30/m² default rate and £250 minimum charge; both editable.
+- Customer records, saved jobs, quotation preview, status tracking and actual job close-out costs.
+- Invoice system, starting at invoice number 500, with payment due on receipt, amount paid and outstanding balance.
+- Invoice creation from a saved job, plus standalone invoices.
+- Backup and restore for saved jobs and invoices.
 
-OTHER FEATURES
-- Customer and property records
-- Select the work required in each room
-- Quotation preview and print / Save PDF
-- Saved jobs and JSON backup / restore
-- Uses the existing localStorage key wightmanDecoratingJobsV1 so saved customer/job records remain in the browser when website files are replaced
+UPDATE YOUR EXISTING GITHUB PAGES SITE
+1. On the iPad, export a backup from the app's Backup tab before updating.
+2. Download this ZIP and unzip it.
+3. Open your existing GitHub repository (the one currently publishing your Wightman Decorating app).
+4. Upload the files from inside the unzipped folder to the repository root, replacing files with the same names. Include the JPG wordmark.
+5. Commit the changes to the main branch.
+6. Wait for the GitHub Actions Pages deployment to finish with a green tick.
+7. Open your existing Pages address in Safari and refresh. If the old version remains, close the tab and reopen it.
 
-IMPORTANT
-1. Export a backup from the current app before replacing website files.
-2. Upload index.html, manifest.json and sw.js to the root of the existing GitHub Pages repository, replacing the old files.
-3. Open the site in Safari and refresh. If an older cached version remains, close the app/tab and reopen; you may need to clear website data for this site only.
-4. Data stays in the browser on this iPad. It is not synced to GitHub or cloud storage. Export backups regularly.
-5. Existing saved records are preserved, but old room-by-room hourly estimates will not automatically convert into working days. Review any old quotation before editing or relying on its calculation.
-6. This is a prototype. Test calculations and quotation wording before relying on it for live customer quotes.
+IMPORTANT DATA NOTE
+Customer, job and invoice records are stored locally in Safari on this iPad, not in GitHub. This update retains the same local-storage keys and website address so existing records should remain. Export a backup first. Do not clear Safari website data or delete the app during the update. The app has no login, encryption or cloud synchronisation. Anyone with access to the unlocked iPad/browser may be able to access the locally stored records.
+
+LICENSING NOTE
+The Aramis-inspired wordmark is image artwork generated from the visual reference. It is not the Aramis Italic font file. If you later embed or distribute the actual Aramis font, check its commercial licence first.
